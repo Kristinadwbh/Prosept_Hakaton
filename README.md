@@ -68,4 +68,4 @@ id или номер столбца при котором стоит 1.
 
 - **[Kristina](https://t.me/kr1588)**
 - **[Julia](https://t.me/Jshmatova)**
-- **[Александр](https://t.me/AlexXramov)**
+- **[Alexandr](https://t.me/AlexXramov)**
