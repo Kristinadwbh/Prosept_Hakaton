@@ -28,7 +28,8 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
     -lst_dict_tst список словарей карточек диллеров для предсказания
                         (можно те же данные из lst_dict_dr);
                         по умолчанию None, то есть предсказываются id
-    -карточек дилеров из lst_dict_dr (дынных для обучения)"""
+    -карточек дилеров из lst_dict_dr (дынных для обучения)
+    """
 
     def separation(s):
         """
