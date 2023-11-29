@@ -6,19 +6,17 @@ ld_mp = mp.to_dict('records')
 ld_mdp_train = train_mdp.to_dict('records')
 ld_mdp_tst = tst_mdp.to_dict('records')
 ld_mpdk = mpdk.to_dict('records')
-%time res = match(ld_mp, ld_mdp_train, ld_mpdk, ld_mdp_tst)
+%time
+res = match(ld_mp, ld_mdp_train, ld_mpdk, ld_mdp_tst)
 df_res = pd.DataFrame(res)
 df_res.head()
 
 test = tst_mdp.merge(mpdk,
                      how='left',
                      left_on='product_key',
-                     right_on='key').loc[:, [
-                                                'product_key',
-                                                'key',
-                                                'product_id'
-                                                   ]
-       ]
+                     right_on='key').loc[:, ['product_key',
+                                             'key',
+                                             'product_id']]
 
 test = pd.concat([test, df_res], axis=1)
 

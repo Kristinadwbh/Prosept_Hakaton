@@ -97,9 +97,13 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         # для которых нет значений id продуктов
         # из данных производителя (для обучения модели)
 
-        test_null = data_mdp.merge(data_mpdk, how='left', left_on='product_key',
-                                   right_on='key').loc[:,
-                    ['product_key', 'key', 'product_id']]
+        test_null = data_mdp.merge(data_mpdk,
+                                   how='left',
+                                   left_on='product_key',
+                                   right_on='key').loc[:, ['product_key',
+                                                           'key',
+                                                           'product_id']]
+
         ind_drop = test_null.loc[test_null['product_id'].isnull()].index.values
         data_mdp.drop(ind_drop, axis=0, inplace=True)
         data_mdp.reset_index(drop=True, inplace=True)
@@ -121,7 +125,7 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         tfIdf = tfIdfVectorizer.fit_transform(data_mp_name['name_tok'])
         # векторизация данных производителя
 
-        tokenize(data_mdp,'product_name')
+        tokenize(data_mdp, 'product_name')
         # функция tokenize для данных от дилеров
 
         tfidf_test = tfIdfVectorizer.transform(data_mdp['product_name_tok'])
@@ -144,22 +148,28 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
             [[data_mp_id.loc[i, 'id'] for i in res_lm.loc[j, :]] for j in
              range(res_lm.shape[0])])
 
-        testlm = data_mdp.merge(data_mpdk, how='left', left_on='product_key',
-                                right_on='key').loc[:,
-                 ['product_key', 'key', 'product_id']]
+        testlm = data_mdp.merge(data_mpdk,
+                                how='left',
+                                left_on='product_key',
+                                right_on='key').loc[:, ['product_key',
+                                                        'key',
+                                                        'product_id']]
+
         testlm = pd.concat([testlm, df_res_lm], axis=1)
 
         for j in range(testlm.shape[0]):
             df_res_lm.loc[j, :] = np.where(
-                df_res_lm.loc[j, :].values == testlm.loc[j, 'product_id'], 1, 0)
+                df_res_lm.loc[j, :].values == testlm.loc[
+                    j, 'product_id'], 1, 0)
         # заполнение 0 и 1 фрэйма с id, где 1 означает верный id
 
         for j in range(df_res_lm.shape[0]):
-            df_res_lm.loc[j, 'target'] = df_res_lm.loc[j,
-                                         :].values.tolist().index(1)
+            df_res_lm.loc[j, 'target'] = (df_res_lm.loc[j, :].
+                                          values.
+                                          tolist().
+                                          index(1))
         # целевая переменная, номер столбца, в котором стоит 1,
         # то есть верного id в отсортированном фрэйме
-
 
         X_train, X_test, Y_train, Y_test = train_test_split(res_sort,
                                                             df_res_lm.target)
@@ -228,7 +238,7 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         # векторизация данных производителя
         # подготовка данных для теста
 
-        tokenize(data_mdp_test,'product_name')
+        tokenize(data_mdp_test, 'product_name')
         # функция tokenize для данных от дилеров
 
         tfidf_test_t = tfIdfVectorizer.transform(
@@ -264,11 +274,11 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         # данных производителя для каждой строки дилера
 
         result = pd.DataFrame(
-            [[df_res_lm_t.loc[i, df_ind_all.loc[i, :][j]] for j in range(5)] for
+            [[df_res_lm_t.loc[i, df_ind_all.loc[i,
+                                 :][j]] for j in range(5)] for
              i in range(df_ind_all.shape[0])])
         result.columns = ['1', '2', '3', '4', '5']
         # итоговый фрэйм с 5 самых вероятных id
-
 
         res_5 = result.to_dict('records')
 
