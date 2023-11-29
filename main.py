@@ -31,11 +31,13 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
     -карточек дилеров из lst_dict_dr (дынных для обучения)"""
 
     def separation(s):
-        """Функция для удаления знаков препинания,
+        """
+        Функция для удаления знаков препинания,
         а также для расклеивания склеенных слов,
         то есть разделения пробелами латиницы от кириллицы,
         чисел от букв и слов в верхнем регистре от слов
-        в нижнем регистре в склеенных словах."""
+        в нижнем регистре в склеенных словах.
+        """
 
         s = re.sub(r'[^\w\s]', ' ', s)
         lat = re.findall(r"[a-zA-Z]+", s)
@@ -52,9 +54,11 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         return s
 
     def tokenize(df, name):
-        """Функция для подготовки к векторизации: разделение склеенных слов,
+        """
+        Функция для подготовки к векторизации: разделение склеенных слов,
         токенизация, лемматизация, стем, избавление от стоп-слов,
-        приведение к нижнему регистру"""
+        приведение к нижнему регистру.
+        """
 
         stopword_en = stopwords.words('english')
         stopword_ru = stopwords.words('russian')
@@ -76,11 +80,12 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         return df
 
     def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k):
-        """ФУНКЦИЯ ДЛЯ ОБУЧЕНИЯ (возвращает обученную модель,
+        """
+        ФУНКЦИЯ ДЛЯ ОБУЧЕНИЯ (возвращает обученную модель,
         которую надо подставить на вход в функцию предсказаний)
          -lst_dict_pr список словарей карточек производителя
          -lst_dict_dr список словарей карточек диллеров для обучения
-         -lst_dict_k список словарей внешних ключей
+         -lst_dict_k список словарей внешних ключей.
         """
         data_mdp = pd.DataFrame(lst_dict_dr)
         data_mp = pd.DataFrame(lst_dict_pr)
@@ -177,7 +182,8 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
                               lst_dict_k)  # ОБУЧЕННАЯ МОДЕЛЬ
 
     def matching_predict(lst_dict_pr, lst_dict_tst, model):
-        """ФУНКЦИЯ ДЛЯ ПРЕДСКАЗАНИЯ
+        """
+        ФУНКЦИЯ ДЛЯ ПРЕДСКАЗАНИЯ
         -lst_dict_pr список словарей карточек производителей
         -lst_dict_tst список словарей карточек диллеров для предсказания
         -model обученная модель
