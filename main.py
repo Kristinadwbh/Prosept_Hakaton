@@ -82,8 +82,10 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
 
     def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k):
         """
-        ФУНКЦИЯ ДЛЯ ОБУЧЕНИЯ (возвращает обученную модель,
-        которую надо подставить на вход в функцию предсказаний)
+        ФУНКЦИЯ ДЛЯ ОБУЧЕНИЯ
+        Возвращает обученную модель,
+        которую надо подставить на вход в функцию предсказаний:
+
          -lst_dict_pr список словарей карточек производителя
          -lst_dict_dr список словарей карточек диллеров для обучения
          -lst_dict_k список словарей внешних ключей.
@@ -91,10 +93,10 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         data_mdp = pd.DataFrame(lst_dict_dr)
         data_mp = pd.DataFrame(lst_dict_pr)
         data_mpdk = pd.DataFrame(lst_dict_k)
-
         # удаление строк из данных от дилеров,
         # для которых нет значений id продуктов
         # из данных производителя (для обучения модели)
+
         test_null = data_mdp.merge(data_mpdk, how='left', left_on='product_key',
                                    right_on='key').loc[:,
                     ['product_key', 'key', 'product_id']]
