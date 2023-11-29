@@ -118,11 +118,14 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
         tfIdf = tfIdfVectorizer.fit_transform(data_mp_name['name_tok'])
         # векторизация данных производителя
 
-        tokenize(data_mdp, 'product_name')  # функция tokenize для данных от дилеров
+        tokenize(data_mdp,
+                 'product_name')  # функция tokenize для данных от дилеров
 
-        tfidf_test = tfIdfVectorizer.transform(data_mdp['product_name_tok'])  # векторизация данных от дилеров
+        tfidf_test = tfIdfVectorizer.transform(
+            data_mdp['product_name_tok'])  # векторизация данных от дилеров
 
-        res = cdist(tfidf_test.toarray(), tfIdf.toarray(), metric='euclidean')  # рассчёт расстояний
+        res = cdist(tfidf_test.toarray(), tfIdf.toarray(),
+                    metric='euclidean')  # рассчёт расстояний
         res = pd.DataFrame(res)
         res_sort = pd.DataFrame([np.sort(res.iloc[i, :]) for i in
                                  range(res.shape[0])])  # сортировка расстояний
