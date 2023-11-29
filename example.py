@@ -10,6 +10,7 @@ ld_mpdk = mpdk.to_dict('records')
 df_res = pd.DataFrame(res)
 df_res.head()
 
+
 test = tst_mdp.merge(mpdk, how='left', left_on='product_key',
                right_on='key').loc[:, ['product_key', 'key', 'product_id']]
 test = pd.concat([test, df_res], axis=1)

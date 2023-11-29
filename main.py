@@ -43,7 +43,7 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):# lst_dict_pr
 
     def tokenize(df, name):#функция для подготовки к векторизации: разделение склеенных слов,
                             #токенизация, лемматизация, стем, избавление от стоп-слов,
-                            #приведение к нижнему регистру
+                            #приведение к нижнему
         stopword_en = stopwords.words('english')
         stopword_ru = stopwords.words('russian')
         porter = PorterStemmer()
