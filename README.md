@@ -64,10 +64,6 @@ id или номер столбца при котором стоит 1.
 Функция возвращает список словарей, в котором каждый список (каждая карточка от
 дилера) представлен 5 id.
 
-# Документация API
-
-[fastapi_proseptdealer/api/docs](https://clownvkkaschenko.github.io/ReferralSystem/)
-
 # Авторы:
 
 - **[Kristina](https://t.me/kr1588)**
