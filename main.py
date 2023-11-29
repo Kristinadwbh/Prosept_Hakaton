@@ -1,15 +1,15 @@
+import re
+
+import lightgbm as lgb
 import nltk
-from nltk.tokenize import word_tokenize
+import numpy as np
+import pandas as pd
 from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+from scipy.spatial.distance import cdist
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
-import lightgbm as lgb
-from scipy.spatial.distance import cdist
-import pandas as pd
-import re
-import numpy as np
 
 nltk.download('stopwords')
 nltk.download('punkt')
@@ -21,14 +21,12 @@ def match(lst_dict_pr, lst_dict_dr, lst_dict_k, lst_dict_tst=None):
     """
     -lst_dict_pr список словарей карточек производителя
     -lst_dict_dr список словарей карточек дилеров для обучения
-    -lst_dict_dr список словарей карточек дилеров для обучения
                         (существующие данные из marketing_dealerprice.csv
                         к примеру, то есть с разметкой)
     -lst_dict_k список словарей внешних ключей
-    -lst_dict_tst список словарей карточек диллеров для предсказания
+    -lst_dict_tst список словарей карточек дилеров для предсказания
                         (можно те же данные из lst_dict_dr);
                         по умолчанию None, то есть предсказываются id
-    -карточек дилеров из lst_dict_dr (дынных для обучения)
     """
 
     def separation(s):
