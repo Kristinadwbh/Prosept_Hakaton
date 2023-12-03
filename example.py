@@ -31,7 +31,7 @@ test = pd.concat([test, df_res], axis=1)
 test = test.loc[~test.product_id.isnull()]
 test.reset_index(drop=True, inplace=True)
 
-def recall_k(df_res.shape[1]):
+def recall_k(k, test):
     for i in range(test.shape[0]):
         if test.loc[i, 'product_id'] in test.loc[
             i, [str(t) for t in range(1, k + 1)]].values:
@@ -40,7 +40,7 @@ def recall_k(df_res.shape[1]):
             test.loc[i, f'recall@{str(k)}'] = 0
     return k
 
-k = recall_k()
+k = recall_k(df_res.shape[1], test)
 print('Accuracy : ', sum(test[f'recall@{str(k)}']) / test.shape[0])
 
 
