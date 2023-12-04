@@ -12,10 +12,10 @@ ld_mdp_tst = tst_mdp.to_dict('records')
 ld_mpdk = mpdk.to_dict('records')
 
 # обучение модели
-%time model = matching_training(ld_mp, ld_mdp_train, ld_mpdk)
+%time model_embeddings = matching_training(ld_mp, ld_mdp_train, ld_mpdk)
 
 # получение предсказания
-%time res = matching_predict(ld_mp, ld_mdp_tst, model)
+%time res = matching_predict(ld_mp, ld_mdp_tst, model_embeddings)
 
 df_res = pd.DataFrame(res)
 df_res.head()
