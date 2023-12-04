@@ -354,8 +354,11 @@ def matching_predict(lst_dict_pr, lst_dict_tst, model_embeddings_pr, k=5):
                 batch_embeddings = encoder(batch, attention_mask=attention_mask_batch)
             embeddings.append(batch_embeddings[0][:,0,:].numpy())
 
-        features = np.concatenate(embeddings)
-        features = pd.DataFrame(features)
+        if embeddings:
+            features = np.concatenate(embeddings)
+            features = pd.DataFrame(features)
+        else:
+          features = pd.DataFrame([])
 
         batch = torch.LongTensor(padded[features.shape[0]:])
         attention_mask_batch = torch.LongTensor(attention_mask[features.shape[0]:])
