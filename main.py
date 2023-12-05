@@ -20,7 +20,7 @@ nltk.download('wordnet')
 nltk.download('omw-1.4')
 
 
-def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k):
+def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k, nm='name'):
     """
     ФУНКЦИЯ ДЛЯ ОБУЧЕНИЯ
     Возвращает обученную модель,
@@ -50,7 +50,7 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k):
         ind_drop = test_null.loc[test_null['product_id'].isnull()].index.values
         data_mdp.drop(ind_drop, axis=0, inplace=True)
 
-        id_drop = data_mp.loc[data_mp.name.isnull()]['id']
+        id_drop = data_mp.loc[data_mp[nm].isnull()]['id']
         drop = data_mpdk.loc[data_mpdk['product_id'].isin(id_drop),['key', 
                                                                     'dealer_id']]
         ind_drop_mdp = []
@@ -66,10 +66,10 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k):
     remove_row_dealer(data_mp, data_mdp, data_mpdk)
 
     # удаляем пропуски в столбце name 
-    data_mp.dropna(subset=['name'], inplace=True)
+    data_mp.dropna(subset=[nm], inplace=True)
     data_mp.reset_index(drop=True, inplace=True)
 
-    data_mp_name = data_mp[['id', 'name']]
+    data_mp_name = data_mp[['id', nm]]
 
     def separation(s):
         """
@@ -123,18 +123,18 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k):
 
     # функция tokenize для данных от производителя
     # и для данных от диллеров
-    tokenize(data_mp_name, 'name')
+    tokenize(data_mp_name, nm)
     tokenize(data_mdp, 'product_name')
 
-    data_mp_id = data_mp_name.loc[:, ['id', 'name_tok']]
-    data_mp_name.drop(['name', 'id'], axis=1, inplace=True)
+    data_mp_id = data_mp_name.loc[:, ['id', nm + '_tok']]
+    data_mp_name.drop([nm, 'id'], axis=1, inplace=True)
     
     # трансформер LaBSE
     bert_name = 'sentence-transformers/LaBSE'
     enc_tokenizer = transformers.AutoTokenizer.from_pretrained(bert_name)
     encoder = transformers.AutoModel.from_pretrained(bert_name)
 
-    data_train = pd.concat([data_mp_name['name_tok'], 
+    data_train = pd.concat([data_mp_name[nm + '_tok'], 
                             data_mdp['product_name_tok']], axis=0)
     def embeddings(data):
         """
@@ -250,7 +250,7 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k):
     return model, features_mp
 
 
-def matching_predict(lst_dict_pr, lst_dict_tst, model_embeddings_pr, k=5):
+def matching_predict(lst_dict_pr, lst_dict_tst, model_embeddings_pr, k=5, nm='name):
     """
     ФУНКЦИЯ ДЛЯ ПРЕДСКАЗАНИЯ
     -lst_dict_pr список словарей карточек производителей
@@ -265,7 +265,7 @@ def matching_predict(lst_dict_pr, lst_dict_tst, model_embeddings_pr, k=5):
     data_mp = pd.DataFrame(lst_dict_pr)
 
     # удаляем пропуски в столбце name 
-    data_mp.dropna(subset=['name'], inplace=True)
+    data_mp.dropna(subset=[nm], inplace=True)
     data_mp.reset_index(drop=True, inplace=True)
 
     def separation(s):
