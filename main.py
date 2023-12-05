@@ -250,7 +250,7 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k, nm='name'):
     return model, features_mp
 
 
-def matching_predict(lst_dict_pr, lst_dict_tst, model_embeddings_pr, k=5, nm='name):
+def matching_predict(lst_dict_pr, lst_dict_tst, model_embeddings_pr, k=5, nm='name'):
     """
     ФУНКЦИЯ ДЛЯ ПРЕДСКАЗАНИЯ
     -lst_dict_pr список словарей карточек производителей
