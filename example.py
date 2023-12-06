@@ -24,8 +24,8 @@ df_res.head()
 def recall_k(tst, mpdk, df_res, k):
     test = tst.merge(mpdk,
                      how='left',
-                     left_on='product_key',
-                     right_on='key').loc[:, ['product_key',
+                     left_on=['product_key', 'dealer_id'],
+                     right_on=['key', 'dealer_id']).loc[:, ['product_key',
                                              'key',
                                              'product_id']]
     test = pd.concat([test, df_res], axis=1)
