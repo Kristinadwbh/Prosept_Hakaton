@@ -43,8 +43,8 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k, nm='name'):
         """
         test_null = data_mdp.merge(data_mpdk,
                             how='left',
-                            left_on='product_key',
-                            right_on='key').loc[:, ['product_key',
+                            left_on=['product_key', 'dealer_id'],
+                            right_on=['key', 'dealer_id']).loc[:, ['product_key',
                                                     'key',
                                                     'product_id']]
         ind_drop = test_null.loc[test_null['product_id'].isnull()].index.values
@@ -198,8 +198,8 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k, nm='name'):
 
     testlm = data_mdp.merge(data_mpdk,
                             how='left',
-                            left_on='product_key',
-                            right_on='key').loc[:, ['product_key',
+                            left_on=['product_key', 'dealer_id'],
+                            right_on=['key', 'dealer_id']).loc[:, ['product_key',
                                                     'key',
                                                     'product_id']]
 
