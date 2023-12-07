@@ -56,6 +56,20 @@ id или номер столбца при котором стоит 1.
 В файле **example.py** показан пример использования программы и подсчёта метрики.
 В файле **realization.ipynb** представленно выполнение работы над программой. С примерами предсказания для 30% данных диллера с 5 вариантами id и для 30 карточек диллеров с 3 вариантами id.
 
+# Авторы:
+
+* **Backend:**
+  + [Иван](https://github.com/clownvkkaschenko)
+  + [Сергей](https://github.com/Conqerorior)
+
+
+* **Data Science:**
+  + [Кристина](https://github.com/Kristinadwbh)
+
+
+* **Frontend:**
+  + [Дмитрий](https://github.com/dimidrrol)
+  + [Глеб](https://github.com/SimonMatveev)
 
 # Авторы:
 
