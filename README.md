@@ -71,8 +71,4 @@ id или номер столбца при котором стоит 1.
   + [Дмитрий](https://github.com/dimidrrol)
   + [Глеб](https://github.com/SimonMatveev)
 
-# Авторы:
 
-- **[Kristina](https://t.me/kr1588)**
-- **[Julia](https://t.me/Jshmatova)**
-- **[Alexandr](https://t.me/AlexXramov)**
