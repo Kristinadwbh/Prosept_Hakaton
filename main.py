@@ -247,14 +247,12 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k, nm='name'):
                       num_round,
                       valid_sets=[valid_data])
 
-    if os.path.exists('app/csv'):
-        Pkl_filename = 'app/csv/Pikel_model.pkl'
-        with open(Pkl_filename, 'wb') as file:
+    try:
+        with open('app/csv/Pikel_model.pkl', 'wb') as file:
             pickle.dump(model, file)
         features_mp.to_csv('app/csv/features_mp.csv')
-    else:
-        Pkl_filename = 'Pikel_model.pkl'
-        with open(Pkl_filename, 'wb') as file:
+    except:
+        with open('Pikel_model.pkl', 'wb') as file:
             pickle.dump(model, file)
         features_mp.to_csv('features_mp.csv')
 
