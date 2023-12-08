@@ -11,6 +11,7 @@ from scipy.spatial.distance import cdist
 import pandas as pd
 import re
 import numpy as np
+import pickle
 from tqdm import notebook
 
 nltk.download('stopwords')
@@ -252,7 +253,7 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k, nm='name'):
             pickle.dump(model, file)
         features_mp.to_csv('app/csv/features_mp.csv')
     except:
-        Pkl_filename = ('Pikel_model.pkl')
+        Pkl_filename = 'Pikel_model.pkl'
         with open(Pkl_filename, 'wb') as file:
             pickle.dump(model, file)
         features_mp.to_csv('features_mp.csv')
