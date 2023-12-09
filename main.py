@@ -246,7 +246,8 @@ def matching_training(lst_dict_pr, lst_dict_dr, lst_dict_k, nm='name'):
                       train_data,
                       num_round,
                       valid_sets=[valid_data])
-
+    
+    # сохранение модели и эмбеддингов в файлы 'Pikel_model.pkl' и 'features_mp.csv'
     try:
         with open('app/csv/Pikel_model.pkl', 'wb') as file:
             pickle.dump(model, file)
